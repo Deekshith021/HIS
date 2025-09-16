@@ -89,14 +89,15 @@ AUTH_USER_MODEL = 'his.User'
 # -----------------------------------------------------------------------------
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'HIS_DB',
-        'USER': 'postgres',
-        'PASSWORD': 'abc@123',
-        'HOST': 'localhost',  # or your PostgreSQL server IP
-        'PORT': '5432',       # default PostgreSQL port
+        'ENGINE': 'djongo',
+        'NAME': 'HIS_db',  # your DB name inside MongoDB
+        'CLIENT': {
+            'host': 'mongodb+srv://aramanraj01:tNoXW7ZsLpOJCxvg@cluster0.ephjclx.mongodb.net/PrivateDB?retryWrites=true&w=majority',
+            # you can also specify other options here like ssl, retryWrites, etc.
+        }
     }
 }
+
 
 # -----------------------------------------------------------------------------
 # PASSWORD VALIDATORS
