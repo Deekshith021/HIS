@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Appointments{% endblock %}
+
+{% block content %}
+<h1>Appointments</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Doctor</th>
+      <th>Department</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for appt in appointments %}
+    <tr>
+      <td>{{ appt.date }}</td>
+      <td>{{ appt.doctor.get_full_name }}</td>
+      <td>{{ appt.department }}</td>
+      <td>{{ appt.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

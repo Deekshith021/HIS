@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}System Configuration{% endblock %}
+
+{% block content %}
+<div class="system-config-container">
+    <h1>System Configuration</h1>
+    <p>Manage system-wide settings for the hospital HIS.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="hospital_name">Hospital Name:</label>
+            <input type="text" name="hospital_name" id="hospital_name" value="{{ config.hospital_name }}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="default_currency">Default Currency:</label>
+            <input type="text" name="default_currency" id="default_currency" value="{{ config.default_currency }}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="working_hours">Working Hours:</label>
+            <input type="text" name="working_hours" id="working_hours" value="{{ config.working_hours }}" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Settings</button>
+    </form>
+</div>
+
+<style>
+.system-config-container {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.btn-primary {
+    background-color: #667eea;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+}
+</style>
+{% endblock %}

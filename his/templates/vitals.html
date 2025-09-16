@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Vitals Entry{% endblock %}
+
+{% block content %}
+<h1>Vitals Entry</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Patient MRN</th>
+      <th>Name</th>
+      <th>Temperature (°C)</th>
+      <th>Blood Pressure</th>
+      <th>Pulse</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient in patients %}
+    <tr>
+      <td>{{ patient.mrn }}</td>
+      <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+      <td><input type="text" name="temperature_{{ patient.uid }}"></td>
+      <td><input type="text" name="bp_{{ patient.uid }}"></td>
+      <td><input type="text" name="pulse_{{ patient.uid }}"></td>
+      <td><button onclick="saveVitals('{{ patient.uid }}')">Save</button></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script>
+function saveVitals(uid){
+    alert("Save vitals for patient UID: " + uid);
+    // Use AJAX to submit vitals
+}
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Orders{% endblock %}
+
+{% block content %}
+<h1>Lab Orders</h1>
+<ul>
+  {% for order in lab_orders %}
+    <li>{{ order.id }} - {{ order.patient_name }} - {{ order.status }}</li>
+  {% empty %}
+    <li>No lab orders found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

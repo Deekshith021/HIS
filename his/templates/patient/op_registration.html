@@ -1,0 +1,225 @@
+{% extends 'his/base.html' %}
+{% load static %}
+
+{% block title %}OP Registration{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">OP Registration</h2>
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+
+        <!-- ================= Patient Info ================= -->
+        <fieldset class="border p-3 mb-4">
+            <legend class="w-auto px-2">Patient Information</legend>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="first_name" class="form-label">First Name <span class="text-danger">*</span></label>
+                    <input type="text" name="first_name" id="first_name" class="form-control" required>
+                    <div class="invalid-feedback">Please enter the first name.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" name="last_name" id="last_name" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select name="gender" id="gender" class="form-select" required>
+                        <option value="">-- Select --</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Other</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a gender.</div>
+                </div>
+                <div class="col-md-3">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" name="dob" id="dob" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" name="age" id="age" class="form-control" readonly>
+                </div>
+                <div class="col-md-3 d-flex align-items-center">
+                    <div class="form-check mt-4">
+                        <input type="checkbox" name="dob_approx" id="dob_approx" class="form-check-input">
+                        <label for="dob_approx" class="form-check-label">DOB Approximate</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="blood_group" class="form-label">Blood Group</label>
+                    <select name="blood_group" id="blood_group" class="form-select">
+                        <option value="">-- Select --</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="contact_number" class="form-label">Contact Number</label>
+                    <input type="text" name="contact_number" id="contact_number" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- ================= Address ================= -->
+        <fieldset class="border p-3 mb-4">
+            <legend class="w-auto px-2">Address</legend>
+            <div class="mb-3">
+                <label for="address" class="form-label">Full Address</label>
+                <textarea name="address" id="address" class="form-control" rows="2"></textarea>
+            </div>
+        </fieldset>
+
+        <!-- ================= Emergency & Insurance ================= -->
+        <fieldset class="border p-3 mb-4">
+            <legend class="w-auto px-2">Other Details</legend>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="emergency_contact" class="form-label">Emergency Contact</label>
+                    <input type="text" name="emergency_contact" id="emergency_contact" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="aadhar_number" class="form-label">Aadhar Number</label>
+                    <input type="text" name="aadhar_number" id="aadhar_number" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="insurance_number" class="form-label">Insurance Number</label>
+                    <input type="text" name="insurance_number" id="insurance_number" class="form-control">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="allergies" class="form-label">Allergies</label>
+                <textarea name="allergies" id="allergies" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="medical_history" class="form-label">Medical History</label>
+                <textarea name="medical_history" id="medical_history" class="form-control" rows="2"></textarea>
+            </div>
+        </fieldset>
+
+        <!-- ================= Visit Details ================= -->
+        <fieldset class="border p-3 mb-4">
+            <legend class="w-auto px-2">Visit Details</legend>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="department" class="form-label">Department <span class="text-danger">*</span></label>
+                    <select name="department" id="department" class="form-select" required>
+                        <option value="">Select Department</option>
+                        {% for dept in departments %}
+                        <option value="{{ dept.id }}">{{ dept.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Please select a department.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="doctor" class="form-label">Attending Doctor <span class="text-danger">*</span></label>
+                    <select name="doctor" id="doctor" class="form-select" required>
+                        <option value="">Select Doctor</option>
+                        {% for doc in doctors %}
+                        <option value="{{ doc.id }}">{{ doc.get_full_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Please select a doctor.</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="reason" class="form-label">Reason for Visit</label>
+                <textarea name="reason" id="reason" class="form-control" rows="2"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="appointment_date" class="form-label">Appointment Date (Optional)</label>
+                <input type="date" name="appointment_date" id="appointment_date" class="form-control">
+            </div>
+        </fieldset>
+
+        <!-- ================= Payment ================= -->
+        <fieldset class="border p-3 mb-4">
+            <legend class="w-auto px-2">Payment Information</legend>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="service" class="form-label">Service</label>
+                    <input type="text" name="service" id="service" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="payment" class="form-label">Payment</label>
+                    <input type="number" name="payment" id="payment" class="form-control" value="0">
+                </div>
+                <div class="col-md-4">
+                    <label for="discount" class="form-label">Discount</label>
+                    <input type="number" name="discount" id="discount" class="form-control" value="0">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="payment_mode" class="form-label">Payment Mode</label>
+                    <select name="payment_mode" id="payment_mode" class="form-select">
+                        <option value="cash">Cash</option>
+                        <option value="card">Card</option>
+                        <option value="upi">UPI</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- ================= Submit ================= -->
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Register Patient</button>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap validation & Age calculation script -->
+<script>
+(function () {
+    'use strict'
+
+    // Bootstrap validation
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+
+    // Auto calculate age from DOB
+    const dobInput = document.getElementById('dob');
+    const ageInput = document.getElementById('age');
+
+    dobInput.addEventListener('change', function () {
+        if (dobInput.value) {
+            const dob = new Date(dobInput.value);
+            const diffMs = Date.now() - dob.getTime();
+            const ageDt = new Date(diffMs);
+            const calculatedAge = Math.abs(ageDt.getUTCFullYear() - 1970);
+            ageInput.value = calculatedAge;
+        } else {
+            ageInput.value = '';
+        }
+    });
+})();
+</script>
+{% endblock %}

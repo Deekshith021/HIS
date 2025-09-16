@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Pharmacy Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+
+    <h1 class="text-3xl font-bold mb-6">Pharmacy Dashboard</h1>
+
+    <!-- Statistics Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-blue-100 p-4 rounded shadow">
+            <h2 class="text-xl font-semibold">Pending Prescriptions</h2>
+            <p class="text-3xl mt-2">{{ pending_prescriptions_count|default:"0" }}</p>
+        </div>
+        <div class="bg-red-100 p-4 rounded shadow">
+            <h2 class="text-xl font-semibold">Low Stock Medications</h2>
+            <p class="text-3xl mt-2">{{ low_stock_medications|length|default:"0" }}</p>
+        </div>
+        <div class="bg-green-100 p-4 rounded shadow">
+            <h2 class="text-xl font-semibold">Recent Procurements</h2>
+            <p class="text-3xl mt-2">{{ recent_procurements|length|default:"0" }}</p>
+        </div>
+    </div>
+
+    <!-- Pending Prescriptions Table -->
+    <div class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Pending Prescriptions</h2>
+        <table class="min-w-full border border-gray-300">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2 border">Prescription ID</th>
+                    <th class="p-2 border">Patient MRN</th>
+                    <th class="p-2 border">Prescribed By</th>
+                    <th class="p-2 border">Created At</th>
+                    <th class="p-2 border">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prescription in pending_prescriptions %}
+                <tr class="border-b">
+                    <td class="p-2 border">{{ prescription.id }}</td>
+                    <td class="p-2 border">{{ prescription.visit.patient.mrn }}</td>
+                    <td class="p-2 border">{{ prescription.prescribed_by.get_full_name|default:prescription.prescribed_by.username }}</td>
+                    <td class="p-2 border">{{ prescription.created_at|date:"Y-m-d H:i" }}</td>
+                    <td class="p-2 border">
+                        <a href="{% url 'pharmacy:prescription_detail' prescription.id %}" class="text-blue-600 hover:underline">View</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center p-4">No pending prescriptions.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Low Stock Medications Table -->
+    <div class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Low Stock Medications</h2>
+        <table class="min-w-full border border-gray-300">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2 border">Medication</th>
+                    <th class="p-2 border">Batch Number</th>
+                    <th class="p-2 border">Quantity</th>
+                    <th class="p-2 border">Minimum Stock Level</th>
+                    <th class="p-2 border">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in low_stock_medications %}
+                <tr class="border-b">
+                    <td class="p-2 border">{{ stock.name }}</td>
+                    <td class="p-2 border">{{ stock.batch_number }}</td>
+                    <td class="p-2 border">{{ stock.quantity }}</td>
+                    <td class="p-2 border">{{ stock.minimum_stock_level }}</td>
+                    <td class="p-2 border">
+                        <a href="{% url 'pharmacy:stock_detail' stock.id %}" class="text-blue-600 hover:underline">View</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center p-4">No low stock medications.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Recent Procurements Table -->
+    <div class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Recent Procurements</h2>
+        <table class="min-w-full border border-gray-300">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2 border">Order Number</th>
+                    <th class="p-2 border">Supplier</th>
+                    <th class="p-2 border">Ordered By</th>
+                    <th class="p-2 border">Order Date</th>
+                    <th class="p-2 border">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for procurement in recent_procurements %}
+                <tr class="border-b">
+                    <td class="p-2 border">{{ procurement.order_number }}</td>
+                    <td class="p-2 border">{{ procurement.supplier.name }}</td>
+                    <td class="p-2 border">{{ procurement.ordered_by.get_full_name|default:procurement.ordered_by.username }}</td>
+                    <td class="p-2 border">{{ procurement.order_date|date:"Y-m-d" }}</td>
+                    <td class="p-2 border">{{ procurement.status|capfirst }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center p-4">No recent procurements.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

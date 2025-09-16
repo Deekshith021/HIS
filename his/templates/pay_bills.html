@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Pay Bills{% endblock %}
+
+{% block content %}
+<h1>Pay Bills</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Invoice #</th>
+      <th>Amount Due</th>
+      <th>Due Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for invoice in unpaid_invoices %}
+    <tr>
+      <td>{{ invoice.invoice_number }}</td>
+      <td>{{ invoice.total_amount }}</td>
+      <td>{{ invoice.due_date }}</td>
+      <td><button onclick="payInvoice('{{ invoice.id }}')">Pay Now</button></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+function payInvoice(id){
+    alert("Pay invoice ID: " + id);
+    // AJAX call for payment
+}
+</script>
+{% endblock %}

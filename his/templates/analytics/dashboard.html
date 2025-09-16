@@ -1,0 +1,32 @@
+{% load static %}  <!-- Add this at the very top -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Analytics Dashboard</h1>
+    </header>
+
+    <main>
+        <section id="charts">
+            <h2>Charts and Graphs</h2>
+            <!-- Placeholder for charts -->
+        </section>
+        <section id="summary">
+            <h2>Summary</h2>
+            <p>Total Patients: {{ total_patients }}</p>
+            <p>Active Visits: {{ active_visits }}</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} Hospital HIS</p>
+    </footer>
+</body>
+</html>

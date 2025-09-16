@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Payments{% endblock %}
+
+{% block content %}
+<h1>Payments</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Invoice #</th>
+      <th>Amount</th>
+      <th>Method</th>
+      <th>Paid At</th>
+      <th>Recorded By</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for payment in payments %}
+    <tr>
+      <td>{{ payment.invoice.invoice_number }}</td>
+      <td>{{ payment.amount }}</td>
+      <td>{{ payment.method }}</td>
+      <td>{{ payment.paid_at }}</td>
+      <td>{{ payment.recorded_by }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Medicine Dispense{% endblock %}
+
+{% block content %}
+<h1>Dispense Medicine</h1>
+<form method="post">
+  {% csrf_token %}
+  <label>Patient:</label>
+  <select name="patient">
+    {% for patient in patients %}
+      <option value="{{ patient.uid }}">{{ patient.first_name }} {{ patient.last_name }}</option>
+    {% endfor %}
+  </select><br>
+
+  <label>Prescription:</label>
+  <select name="prescription">
+    {% for prescription in prescriptions %}
+      <option value="{{ prescription.id }}">{{ prescription.notes }}</option>
+    {% endfor %}
+  </select><br>
+
+  <label>Medication:</label>
+  <input type="text" name="medication_name"><br>
+  <label>Quantity:</label>
+  <input type="number" name="quantity" step="0.01"><br>
+  <button type="submit">Dispense</button>
+</form>
+{% endblock %}

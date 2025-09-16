@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Pharmacy Stock{% endblock %}
+
+{% block content %}
+<h1>Pharmacy Stock</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Medication</th>
+      <th>Batch</th>
+      <th>Expiry Date</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in stock %}
+    <tr>
+      <td>{{ item.medication_name }}</td>
+      <td>{{ item.batch_number }}</td>
+      <td>{{ item.expiry_date }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.unit_price }}</td>
+      <td><a href="#">Edit</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

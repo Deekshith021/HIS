@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Vitals{% endblock %}
+
+{% block content %}
+<h1>Vitals</h1>
+<ul>
+  {% for vital in vitals %}
+    <li>{{ vital.patient_name }} - {{ vital.temperature }}°C - {{ vital.pulse }} bpm</li>
+  {% empty %}
+    <li>No vitals recorded.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

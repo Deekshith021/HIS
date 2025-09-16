@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Procurement Records{% endblock %}
+
+{% block content %}
+<h1>Procurement</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Medication</th>
+      <th>Supplier</th>
+      <th>Ordered Quantity</th>
+      <th>Received Quantity</th>
+      <th>Order Date</th>
+      <th>Received Date</th>
+      <th>Invoice #</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in procurements %}
+    <tr>
+      <td>{{ p.stock.medication_name }}</td>
+      <td>{{ p.supplier }}</td>
+      <td>{{ p.ordered_quantity }}</td>
+      <td>{{ p.received_quantity }}</td>
+      <td>{{ p.order_date }}</td>
+      <td>{{ p.received_date }}</td>
+      <td>{{ p.invoice_number }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

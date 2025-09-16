@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Patient Monitoring{% endblock %}
+
+{% block content %}
+<h1>Patient Monitoring</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Patient MRN</th>
+      <th>Name</th>
+      <th>Last Vitals</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient in patients %}
+    <tr>
+      <td>{{ patient.mrn }}</td>
+      <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+      <td>{{ patient.latest_vitals }}</td>
+      <td>{{ patient.status }}</td>
+      <td><a href="{% url 'vitals' %}?patient={{ patient.uid }}">Update Vitals</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

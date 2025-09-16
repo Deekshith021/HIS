@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Lab Orders{% endblock %}
+
+{% block content %}
+<h1>Lab Orders</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Patient</th>
+      <th>Test</th>
+      <th>Status</th>
+      <th>Ordered By</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in lab_orders %}
+    <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.visit.patient.first_name }} {{ order.visit.patient.last_name }}</td>
+      <td>{{ order.test_name }}</td>
+      <td>{{ order.status }}</td>
+      <td>{{ order.ordered_by }}</td>
+      <td><a href="{% url 'lab_result_add' order.id %}">Add Result</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Patients{% endblock %}
+
+{% block content %}
+<h1>Patients</h1>
+<table>
+  <thead>
+    <tr>
+      <th>MRN</th>
+      <th>Name</th>
+      <th>DOB</th>
+      <th>Gender</th>
+      <th>Contact</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient in patients %}
+    <tr>
+      <td>{{ patient.mrn }}</td>
+      <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+      <td>{{ patient.dob }}</td>
+      <td>{{ patient.gender }}</td>
+      <td>{{ patient.contact_number }}</td>
+      <td><a href="{% url 'patient-detail' patient.uid %}">View</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

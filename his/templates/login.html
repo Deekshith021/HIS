@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login | Hospital HIS{% endblock %}
+
+{% block extrastyles %}
+<style>
+  body {
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+  }
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  .login-card {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 350px;
+  }
+  .login-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+  }
+  .login-card label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .login-card input[type="text"],
+  .login-card input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  .login-card button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .login-card button:hover {
+    background-color: #0056b3;
+  }
+  .login-footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  .login-footer a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  .login-footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" placeholder="Enter your username" required>
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="Enter your password" required>
+
+      <button type="submit">Login</button>
+    </form>
+    <div class="login-footer">
+      <p>Forgot your password? <a href="#">Click here</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Ward Management{% endblock %}
+
+{% block content %}
+<h1>Ward Management</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Patient MRN</th>
+      <th>Name</th>
+      <th>Ward</th>
+      <th>Bed Number</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient in patients %}
+    <tr>
+      <td>{{ patient.mrn }}</td>
+      <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+      <td><input type="text" name="ward_{{ patient.uid }}" value="{{ patient.ward }}"></td>
+      <td><input type="text" name="bed_{{ patient.uid }}" value="{{ patient.bed }}"></td>
+      <td><button onclick="saveWard('{{ patient.uid }}')">Save</button></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script>
+function saveWard(uid){
+    alert("Save ward info for patient UID: " + uid);
+    // AJAX call to save ward/bed
+}
+</script>
+{% endblock %}

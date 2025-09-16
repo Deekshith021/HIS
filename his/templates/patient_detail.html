@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Patient Detail{% endblock %}
+
+{% block content %}
+<h1>{{ patient.first_name }} {{ patient.last_name }}</h1>
+<p>MRN: {{ patient.mrn }}</p>
+<p>DOB: {{ patient.dob }}</p>
+<p>Gender: {{ patient.gender }}</p>
+
+<h2>Medical Records</h2>
+<ul>
+  {% for record in patient.visits.all %}
+  <li>Visit: {{ record.visit_id }}, Notes: {{ record.medical_records.count }} records</li>
+  {% endfor %}
+</ul>
+
+<h2>Prescriptions</h2>
+<ul>
+  {% for visit in patient.visits.all %}
+    {% for prescription in visit.prescriptions.all %}
+      <li>{{ prescription.notes }} - Prescribed by {{ prescription.prescribed_by }}</li>
+    {% endfor %}
+  {% endfor %}
+</ul>
+{% endblock %}

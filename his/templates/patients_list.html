@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Patients{% endblock %}
+
+{% block content %}
+<h1>All Patients</h1>
+<ul>
+  {% for patient in patients %}
+    <li>{{ patient.name }} - {{ patient.mrn }}</li>
+  {% empty %}
+    <li>No patients found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
